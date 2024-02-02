@@ -21,5 +21,6 @@ from drfsite.views import TaskAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/tasklist', TaskAPIView.as_view())
+    path('api/v1/tasklist', TaskAPIView.as_view()),
+    path('tasks/<int:pk>/', TaskAPIView.as_view(), name='task-detail'),
 ]
