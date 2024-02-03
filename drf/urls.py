@@ -15,12 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 
-from drfsite.views import TaskAPIView
+from drfsite.views import TaskViewSet
+
+router = routers.DefaultRouter()
+router.register(r'task', TaskViewSet)
+print(router.urls)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/tasklist', TaskAPIView.as_view()),
-    path('tasks/<int:pk>/', TaskAPIView.as_view(), name='task-detail'),
+    path('api/v1/', include(router.urls)),
 ]
