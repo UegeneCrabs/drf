@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -12,6 +13,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = (CustomPermission,)
+    #authentication_classes = (TokenAuthentication,)
 
     # ------------------------------8:9 lesson-------------------------#
     @action(methods=['get'], detail=False)
