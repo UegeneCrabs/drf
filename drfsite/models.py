@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+
 
 # Create your models here.
 
@@ -29,6 +31,7 @@ class Task(models.Model):
     days_to_complete = models.PositiveIntegerField(verbose_name="Дней для выполнения")
     date_creation = models.DateTimeField(auto_now_add=False, verbose_name="Дата создания")
     store = models.ForeignKey(Store, on_delete=models.CASCADE, verbose_name="Магазин")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
 
     def str(self):
         return self.task_name
@@ -39,4 +42,3 @@ class Task(models.Model):
 
     def delete_task(self):
         self.delete()
-

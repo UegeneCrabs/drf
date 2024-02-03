@@ -26,5 +26,6 @@ print(router.urls)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user/', include('rest_framework.urls')),
     path('api/v1/', include(router.urls)),
 ]

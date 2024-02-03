@@ -4,14 +4,14 @@ from .models import Task, Store
 import random
 
 
-class StoreSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Store
-        fields = ['name', 'owner']
 # class StoreSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Store
 #         fields = '__all__'
+class StoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = ['name', 'owner']
 
 
 class TaskSerializer(serializers.Serializer):
@@ -23,6 +23,11 @@ class TaskSerializer(serializers.Serializer):
     date_creation = serializers.DateTimeField()
     days_to_complete = serializers.IntegerField()
     store = StoreSerializer()
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    username = serializers.SerializerMethodField()  # Добавлено поле для имени пользователя
+
+    def get_username(self, obj):
+        return obj.user.username if obj.user else None
 
     def create(self, validated_data):
         store_data = validated_data.pop('store', {})
